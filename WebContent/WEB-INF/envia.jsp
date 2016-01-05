@@ -7,7 +7,7 @@
 		String from = request.getParameter("de");
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "localhost");
+		props.put("mail.smtp.host", "pinga.comperve.ufrn.br");
 
 		Session sessao = Session.getInstance(props);
 		sessao.setDebug(true);

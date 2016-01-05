@@ -1,5 +1,6 @@
 package despachante.email;
 
+import java.net.MalformedURLException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -9,6 +10,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.commons.mail.EmailException;
 
 /**
  * Service que efetua o envio de e-mails
@@ -26,16 +29,16 @@ public class EmailService {
 	public static void enviarEmail(String from, String to, String assunto, String texto) {
 		
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "587");
-		props.put("mail.smtp.starttls.enable", true);
+		props.put("mail.smtp.host", "smtp.comperve.ufrn.br");
+		props.put("mail.smtp.socketFactory.port", "110");
+		props.put("mail.smtp.starttls.enable", false);
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.port", "25");
  
 		Session session = Session.getDefaultInstance(props,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("naoresponder@imd.ufrn.br","$1$t3m@s1md3v");
+					return new PasswordAuthentication("ramon","s4nt0s@");
 				}
 			});
  
@@ -68,6 +71,11 @@ public class EmailService {
 				+" a alteração para uma senha de sua preferência através do seguinte endereço: "+ urlSistema+" \n\n"
 				+"E-mail emitido automaticamente, por favor não responder. \n\nAtenciosamente, \n Equipe Inova\n IMD/UFRN");
 		
+	}
+
+	public static void main(String[] args) throws EmailException, MalformedURLException {
+		EmailService email = new EmailService();
+		email.enviarEmail("rsanttos1@hotmail.com", "rsanttos22@gmail.com", "assunto teste", "texto teste");
 	}
 }
 
